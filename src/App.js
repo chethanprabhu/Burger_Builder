@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
+import Layout from "./components/layout/Layout"
 
-function App() {
-  return (
-    <h1>Burger Builder</h1>
-  );
+class App extends Component {
+  render() {
+    return (
+      <Layout>
+        <h1>Main</h1>
+      </Layout>
+    )
+  }
 }
 
 export default App;
