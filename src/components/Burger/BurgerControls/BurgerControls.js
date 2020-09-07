@@ -18,6 +18,8 @@ const BurgerControls = (props) => {
                     label={control.label}
                     moreClicked={() => props.more(control.type)}
                     lessClicked={() => props.less(control.type)}
+                    state={props.state}
+                    type={control.type}
                     ></BuildControl>
             })}
         </div>
