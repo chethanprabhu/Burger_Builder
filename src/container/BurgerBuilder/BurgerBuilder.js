@@ -26,7 +26,7 @@ class BurgerBuilder extends Component {
         this.setState({
             ingredients: {
             ...this.state.ingredients,
-            [type]: this.state.ingredients[type] - 1
+            [type]: this.state.ingredients[type] ? this.state.ingredients[type] - 1: 0
         }})
         console.log(this.state)
     }
