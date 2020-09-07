@@ -2,6 +2,13 @@ import React, { Component } from  "react";
 import Burger from "../../components/Burger/Burger"
 import BurgerControls from "../../components/Burger/BurgerControls/BurgerControls"
 
+const INGREDIENT_PRICE = {
+    salad: 20,
+    cheese: 30,
+    meat: 50,
+    bacon: 40
+}
+
 class BurgerBuilder extends Component {
 
     state = {
@@ -19,7 +26,7 @@ class BurgerBuilder extends Component {
             ingredients: {
             ...this.state.ingredients,
             [type]: this.state.ingredients[type] + 1
-        }})
+        }, totalPrice: this.state.totalPrice + INGREDIENT_PRICE[type]})
         console.log(this.state)
     } 
 
@@ -28,7 +35,7 @@ class BurgerBuilder extends Component {
             ingredients: {
             ...this.state.ingredients,
             [type]: this.state.ingredients[type] ? this.state.ingredients[type] - 1: 0
-        }})
+        }, totalPrice: this.state.totalPrice - INGREDIENT_PRICE[type]})
         console.log(this.state)
     }
 
