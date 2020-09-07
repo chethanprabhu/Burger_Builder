@@ -12,6 +12,7 @@ const controls = [
 const BurgerControls = (props) => {
     return (
         <div className={classes.BuildControls}>
+            <p>Total Price: <strong>₹{props.state.totalPrice}</strong></p>
             {controls.map(control => {
                 return <BuildControl 
                     key={control.label} 
