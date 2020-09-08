@@ -24,7 +24,8 @@ const BurgerControls = (props) => {
                     type={control.type}
                     ></BuildControl>
             })}
-            <button disabled={props.state.totalPrice === 50} className={classes.OrderButton}>ORDER NOW</button>
+            <button disabled={props.state.totalPrice === 50} className={classes.OrderButton}
+                onClick={props.orderClicked}>ORDER NOW</button>
         </div>
     ) 
 }
