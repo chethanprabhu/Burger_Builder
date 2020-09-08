@@ -10,6 +10,7 @@ const controls = [
 ]
 
 const BurgerControls = (props) => {
+
     return (
         <div className={classes.BuildControls}>
             <p>Total Price: <strong>₹{props.state.totalPrice}</strong></p>
@@ -23,6 +24,7 @@ const BurgerControls = (props) => {
                     type={control.type}
                     ></BuildControl>
             })}
+            <button disabled={props.state.totalPrice === 50} className={classes.OrderButton}>ORDER NOW</button>
         </div>
     ) 
 }
