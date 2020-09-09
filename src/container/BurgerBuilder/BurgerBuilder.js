@@ -49,10 +49,9 @@ class BurgerBuilder extends Component {
     render() {
         return (
             <React.Fragment>
-                {this.state.ordered? 
-                <Modal>
+                <Modal ordered={this.state.ordered}>
                     <OrderSummary ing={this.state.ingredients}/>
-                </Modal> : null}
+                </Modal>
                 <Burger ingredients={this.state.ingredients}/>
                 <BurgerControls more={(type) => this.addHandler(type)} 
                                 less={(type) => this.removeHandler(type)}
