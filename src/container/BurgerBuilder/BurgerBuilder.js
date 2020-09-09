@@ -52,11 +52,16 @@ class BurgerBuilder extends Component {
         })
     }
 
+    orderContinueHandler = () => {
+        console.log("Not yet implemented");
+    }
+
     render() {
         return (
             <React.Fragment>
                 <Modal backdropClicked={this.backdropClickedHandler} ordered={this.state.ordered}>
-                    <OrderSummary ing={this.state.ingredients}/>
+                    <OrderSummary cancle={this.backdropClickedHandler} continue={this.orderContinueHandler} 
+                        ing={this.state.ingredients} />
                 </Modal>
                 <Burger ingredients={this.state.ingredients}/>
                 <BurgerControls more={(type) => this.addHandler(type)} 

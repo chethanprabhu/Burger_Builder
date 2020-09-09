@@ -1,4 +1,5 @@
 import React from 'react'
+import Button from "../../UI/Button/Button"
 
 const OrderSummary = (props) => {
 
@@ -11,7 +12,10 @@ const OrderSummary = (props) => {
            <p>Thanks for ordering a BURGER for us.</p>
            <p>Your BURGER contains the following ingredients</p>
            <ul>{orderedItems}</ul>
+            
            <p>Continue to check out?</p>
+           <Button clicked={props.cancle} buttonType="Danger">CANCLE</Button>
+           <Button clicked={props.continue} buttonType="Success">SUCCESS</Button>
        </React.Fragment>
     )
 }
