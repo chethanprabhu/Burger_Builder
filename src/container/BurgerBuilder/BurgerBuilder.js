@@ -46,10 +46,16 @@ class BurgerBuilder extends Component {
         console.log(this.state)
     }
 
+    backdropClickedHandler = () => {
+        this.setState({
+            ordered: false
+        })
+    }
+
     render() {
         return (
             <React.Fragment>
-                <Modal ordered={this.state.ordered}>
+                <Modal backdropClicked={this.backdropClickedHandler} ordered={this.state.ordered}>
                     <OrderSummary ing={this.state.ingredients}/>
                 </Modal>
                 <Burger ingredients={this.state.ingredients}/>
