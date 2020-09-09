@@ -61,7 +61,7 @@ class BurgerBuilder extends Component {
             <React.Fragment>
                 <Modal backdropClicked={this.backdropClickedHandler} ordered={this.state.ordered}>
                     <OrderSummary cancle={this.backdropClickedHandler} continue={this.orderContinueHandler} 
-                        ing={this.state.ingredients} />
+                        ing={this.state.ingredients} price={this.state.totalPrice}/>
                 </Modal>
                 <Burger ingredients={this.state.ingredients}/>
                 <BurgerControls more={(type) => this.addHandler(type)} 
