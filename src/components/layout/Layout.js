@@ -15,10 +15,16 @@ class Layout extends Component {
         })
     }
 
+    toggleClickedHandler = () => {
+        this.setState({
+            showSidebar: !this.state.showSidebar
+        })
+    }
+
     render() {
         return (
             <React.Fragment>
-                <Toolbar/>
+                <Toolbar toggleClicked={this.toggleClickedHandler}/>
                 <Sidebar toggle={this.state.showSidebar} closed={this.sideBarCloseHandler}/>
                 <main className={classes.content}>
                     {this.props.children}
