@@ -1,18 +1,31 @@
-import React from 'react'
+import React, { Component } from 'react'
 import classes from "./Layout.module.css";
 import Toolbar from "../Navigation/Toolbar/Toolbar"
 import Sidebar from "../Navigation/Sidebar/Sidebar"
 
-const Layout = (props) => {
-    return (
-        <React.Fragment>
-            <Toolbar/>
-            <Sidebar/>
-            <main className={classes.content}>
-                {props.children}
-            </main>
-        </React.Fragment>
-    )
+class Layout extends Component {
+
+    state = {
+        showSidebar: false
+    }
+
+    sideBarCloseHandler = () => {
+        this.setState({
+            showSidebar: false
+        })
+    }
+
+    render() {
+        return (
+            <React.Fragment>
+                <Toolbar/>
+                <Sidebar toggle={this.state.showSidebar} closed={this.sideBarCloseHandler}/>
+                <main className={classes.content}>
+                    {this.props.children}
+                </main>
+            </React.Fragment>
+        )
+    }
 }
 
 export default Layout
