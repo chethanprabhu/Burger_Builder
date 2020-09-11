@@ -43,7 +43,6 @@ class BurgerBuilder extends Component {
             ...this.state.ingredients,
             [type]: this.state.ingredients[type] ? this.state.ingredients[type] - 1: 0
         }, totalPrice: this.state.totalPrice - INGREDIENT_PRICE[type]})
-        console.log(this.state)
     }
 
     backdropClickedHandler = () => {
