@@ -1,19 +1,32 @@
-import React from 'react'
+import React, { Component } from 'react'
 import classes from "./Modal.module.css"
 import Backdrop from "../Backdrop/Backdrop"
-const Modal = (props) => {
-    return (
-        <React.Fragment>
-            <Backdrop backdropClicked={props.backdropClicked} show={props.ordered}/>
-            <div className={classes.Modal}
-                style={{
-                    transform: props.ordered ? 'translateY(0)' : 'translateY(-100vh)',
-                    opacity: props.ordered ? '1': '0'
-                }}>
-                {props.children}
-            </div>
-        </React.Fragment>
-    )
+class Modal extends Component {
+
+    shouldComponentUpdate(nextProps) {
+        //because no need to update summary when it's hidden
+        return !(nextProps.ordered === this.props.ordered)
+    }
+
+    //just for demo purpose only
+    componentDidUpdate() {
+        console.log("updated Modal");
+    }
+
+    render() {
+        return (
+            <React.Fragment>
+                <Backdrop backdropClicked={this.props.backdropClicked} show={this.props.ordered}/>
+                <div className={classes.Modal}
+                    style={{
+                        transform: this.props.ordered ? 'translateY(0)' : 'translateY(-100vh)',
+                        opacity: this.props.ordered ? '1': '0'
+                    }}>
+                    {this.props.children}
+                </div>
+            </React.Fragment>
+        )
+    }
 }
 
 export default Modal
