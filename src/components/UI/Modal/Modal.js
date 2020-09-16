@@ -5,7 +5,7 @@ class Modal extends Component {
 
     shouldComponentUpdate(nextProps) {
         //because no need to update summary when it's hidden
-        return !(nextProps.ordered === this.props.ordered)
+        return (nextProps.ordered !== this.props.ordered) || (nextProps.children !== this.props.children)
     }
 
     //just for demo purpose only

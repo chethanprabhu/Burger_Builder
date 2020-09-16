@@ -4,6 +4,7 @@ import BurgerControls from "../../components/Burger/BurgerControls/BurgerControl
 import Modal from "../../components/UI/Modal/Modal"
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 import axios from "../../axios/axios-orders"
+import Spinner from "../../components/UI/Spinnner/Spinner"
 
 const INGREDIENT_PRICE = {
     salad: 20,
@@ -22,7 +23,8 @@ class BurgerBuilder extends Component {
             meat: 0
         },
         totalPrice: 50,
-        ordered: false
+        ordered: false,
+        loading: false
     } 
 
     toggleOrdered = () => {
@@ -53,6 +55,7 @@ class BurgerBuilder extends Component {
     }
 
     orderContinueHandler = () => {
+        this.setState({loading: true})
         axios.post("/orderInfo.json", {
             ingredients: this.state.ingredients,
             totalPrice: this.state.totalPrice,
@@ -69,18 +72,29 @@ class BurgerBuilder extends Component {
         })
         .then((response) => {
             console.log(response);
+            this.setState({loading: false, ordered: false})
         })
         .catch((err) => {
             console.log(err);
+            this.setState({loading: false, ordered: false})
         })
     }
 
+    
+
     render() {
+
+        let orderSummary = <OrderSummary cancle={this.backdropClickedHandler} continue={this.orderContinueHandler} 
+        ing={this.state.ingredients} price={this.state.totalPrice}/>
+
+        if(this.state.loading) {
+            orderSummary = <Spinner/>
+        }
+
         return (
             <React.Fragment>
                 <Modal backdropClicked={this.backdropClickedHandler} ordered={this.state.ordered}>
-                    <OrderSummary cancle={this.backdropClickedHandler} continue={this.orderContinueHandler} 
-                        ing={this.state.ingredients} price={this.state.totalPrice}/>
+                    {orderSummary}
                 </Modal>
                 <Burger ingredients={this.state.ingredients}/>
                 <BurgerControls more={(type) => this.addHandler(type)} 
