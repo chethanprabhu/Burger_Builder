@@ -8,11 +8,15 @@ const withErrorHandling = (WrappedComponent, axios) => {
             error: false
         }
         
-        componentWillMount() {
+        UNSAFE_componentWillMount() {
             this.setState({error: false})
-            axios.interceptors.response.use(null, (error) => {
+            this.respInterceptors = axios.interceptors.response.use(null, (error) => {
                 this.setState({error: true})
             })
+        }
+
+        componentWillUnmount() {
+            axios.interceptors.response.eject(this.respInterceptors);
         }
 
         backdropClickedHandler = () => {
