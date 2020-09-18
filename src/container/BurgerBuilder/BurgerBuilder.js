@@ -17,16 +17,18 @@ const INGREDIENT_PRICE = {
 class BurgerBuilder extends Component {
 
     state = {
-        ingredients: {
-            salad: 0,
-            bacon: 0,
-            cheese: 0,
-            meat: 0
-        },
+        ingredients: null,
         totalPrice: 50,
         ordered: false,
         loading: false
     } 
+
+    componentDidMount() {
+        axios("https://react-my-burger-ea404.firebaseio.com/ingredients")
+            .then(response => {
+                this.setState({ingredients: response.data})
+            })
+    }
 
     toggleOrdered = () => {
         this.setState({ordered: true})
@@ -85,23 +87,35 @@ class BurgerBuilder extends Component {
 
     render() {
 
-        let orderSummary = <OrderSummary cancle={this.backdropClickedHandler} continue={this.orderContinueHandler} 
-        ing={this.state.ingredients} price={this.state.totalPrice}/>
+        let orderSummary = null;
 
-        if(this.state.loading) {
-            orderSummary = <Spinner/>
-        }
+        let burger = <Spinner/>
 
-        return (
+        if(this.state.ingredients) {
+            burger = 
             <React.Fragment>
-                <Modal backdropClicked={this.backdropClickedHandler} ordered={this.state.ordered}>
-                    {orderSummary}
-                </Modal>
                 <Burger ingredients={this.state.ingredients}/>
                 <BurgerControls more={(type) => this.addHandler(type)} 
                                 less={(type) => this.removeHandler(type)}
                                 state={this.state}
                                 orderClicked={this.toggleOrdered}/>
+            </React.Fragment>
+
+            orderSummary = <OrderSummary cancle={this.backdropClickedHandler} continue={this.orderContinueHandler} 
+                ing={this.state.ingredients} price={this.state.totalPrice}/>
+        }
+
+        if(this.state.loading) {
+            orderSummary = <Spinner/>
+        }
+
+    
+        return (
+            <React.Fragment>
+                <Modal backdropClicked={this.backdropClickedHandler} ordered={this.state.ordered}>
+                    {orderSummary}
+                </Modal>
+                {burger}
             </React.Fragment>
         )
     }
