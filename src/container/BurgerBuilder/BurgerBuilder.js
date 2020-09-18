@@ -28,6 +28,9 @@ class BurgerBuilder extends Component {
             .then(response => {
                 this.setState({ingredients: response.data})
             })
+            .catch((error) => {
+                console.log("error getting the ingredients")
+            })
     }
 
     toggleOrdered = () => {
