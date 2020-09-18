@@ -20,7 +20,8 @@ class BurgerBuilder extends Component {
         ingredients: null,
         totalPrice: 50,
         ordered: false,
-        loading: false
+        loading: false,
+        error: false
     } 
 
     componentDidMount() {
@@ -28,8 +29,8 @@ class BurgerBuilder extends Component {
             .then(response => {
                 this.setState({ingredients: response.data})
             })
-            .catch((error) => {
-                console.log("error getting the ingredients")
+            .catch(() => {
+                this.setState({error: true})
             })
     }
 
@@ -92,7 +93,11 @@ class BurgerBuilder extends Component {
 
         let orderSummary = null;
 
-        let burger = <Spinner/>
+        let burger = this.state.error? <React.Fragment>
+                <h1>OH NO! WE ARE SORRY</h1>
+                <p>We are facing issues with our servers. Please try again later. Sorry for the inconvenience caused</p> 
+            </React.Fragment>
+            : <Spinner/>
 
         if(this.state.ingredients) {
             burger = 
