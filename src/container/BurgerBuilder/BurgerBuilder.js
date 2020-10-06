@@ -44,7 +44,6 @@ class BurgerBuilder extends Component {
             ...this.state.ingredients,
             [type]: this.state.ingredients[type] + 1
         }, totalPrice: this.state.totalPrice + INGREDIENT_PRICE[type]})
-        console.log(this.state)
     } 
 
     removeHandler = (type) => {
@@ -62,29 +61,39 @@ class BurgerBuilder extends Component {
     }
 
     orderContinueHandler = () => {
-        this.setState({loading: true})
-        axios.post("/orderInfo.json", {
-            ingredients: this.state.ingredients,
-            totalPrice: this.state.totalPrice,
-            customer: {
-                name: "Chethan prabhu",
-                address: {
-                    street: "landlinks",
-                    pincode: 555912,
-                    country: "India"
-                },
-                email: "chethanprabhu47@gmail.com"
-            },
-            deliveryType: "fastest"
-        })
-        .then((response) => {
-            console.log(response);
-            this.setState({loading: false, ordered: false})
-        })
-        .catch((err) => {
-            console.log(err);
-            this.setState({loading: false, ordered: false})
-        })
+        // this.setState({loading: true})
+        // axios.post("/orderInfo.json", {
+        //     ingredients: this.state.ingredients,
+        //     totalPrice: this.state.totalPrice,
+        //     customer: {
+        //         name: "Chethan prabhu",
+        //         address: {
+        //             street: "landlinks",
+        //             pincode: 555912,
+        //             country: "India"
+        //         },
+        //         email: "chethanprabhu47@gmail.com"
+        //     },
+        //     deliveryType: "fastest"
+        // })
+        // .then((response) => {
+        //     console.log(response);
+        //     this.setState({loading: false, ordered: false})
+        // })
+        // .catch((err) => {
+        //     console.log(err);
+        //     this.setState({loading: false, ordered: false})
+        // })
+        let queryString = [];
+        for(let i in this.state.ingredients) {
+            queryString.push(i + "=" + this.state.ingredients[i])
+        } 
+        
+
+        this.props.history.push({
+            pathname: "checkout",
+            search: queryString.join("&")
+        });
     }
 
     
