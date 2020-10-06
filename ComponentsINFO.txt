@@ -1,0 +1,34 @@
+COMPONENTS INFO
+---------------
+<App/> => This components has <Layout/> component which takes <BurgerBuilder/> component as  Children.
+
+<Layout/> => This components has 1 state i.e showSidebar which toggles <Sidebar/>(We send the showSideBar state as prop to <Sidebar/>). It rendered 2 other components along with children <BurgerBuilder/>. That is <Toolbar/> and <Sidebar/>.
+
+<Toolbar/> => The Toolbar is nothing but the Nav bar. Which has a Menu button that toggles <Sidebar/>. This will be hidden in Desktop mode.
+	      Then it has a <Logo/> in the middle and then the nav itself which has 2 <NavigationItems/> i.e Burger and Checkout. nav items will be hidden in Mobile mode.
+
+<Sidebar/> => As this receives showSidebar state as prop we can use it to Toggle <Backdrop/> to check if Sidebar is opened or closed. It also contains the 2 <NavigationItems/> i.e Burger and Checkout.
+
+<Backdrop/> => <Backdrop/> is just to turn to background into transparent black when <Sidebar/> is opened.
+
+<BurgerBuilder/> => This renderes 4 components. <Burger/>(contains the preview of the actual burger). <BurgerControls/>(contains the controls to add/remove ingredients and also to checkout)
+		    , the <OrderSummary/> which basically displays the order summary when we checkout and finally <Modal/> which wraps the <OrderSummary/>.
+		    This component has 5 states i.e ingredients, totalPrice, ordered, loading, error.
+		    ingredients - This contains the amount of ingredients that we have added, This is got by making an API call.
+		    totalPrice - This contains the total price of burger including base cost + the ingredients cost.
+		    ordered - This is just a flag which goes true when we checkout so that we can toggle <Modal/>.
+		    loading - This is a flag which is true at starting and displays a spinner and once the ingredients data is got from API it turns false to hide the spinner.
+		    error - This flag becomes true when there is error in API call of ingredients.
+		    This <BurgerBuilder/> also has a Higher order component(withErrorHandling) which takes this <BurgerBuilder/> as a wrapped component for error Handling.
+		    This withErrorHandling has a state called 'error' which checks for erros on <BurgerBuilder/>
+		    Note: Now there is a Error state in <BurgerBuilder/> as well. But this Error takes care of only Error that would occur in ingredients API call. But this withErrorHandling
+   		    takes care of all the erros and not just ingredients API. Reason we have specific error handling in <BurgerBuilder/> is because let's take an example of Amazon. In Amazon 
+		    if Place order is failing then we don't need to block the entire Amazon. Same in our case if there is error in say only on POST placeOrder call then we block only that feature 
+		    by displaying a Modal error which is done by withErrorHandling. But if ingredients API is failing then we block the entire Application which is done by our specific error handling
+,		    in <BurgerBuilder/>.
+
+<Burger/> => This component gets ingredients state as props from <BurgerBuilder/>. This component uses the ingredient as prop to show ingredients on Burger preview using <BurgerIngredient/>
+
+<BurgerControls/> => This component gets the entire state object as prop from <BurgerBuilder/>. This burger add multiple controls using <BurgerControl/> which gets entire state as prop.
+
+<OrderSummary/> => This componenet gets totalPrice and ingredients state as props from <BurgerBuilder/>. This displays the info using <Modal/> and the totalPrice and ingredients props.
